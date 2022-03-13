@@ -70,12 +70,8 @@ alias kmc='kubectl get tkc -A'
 alias mcdelete='kubectl delete tkc'
 alias mccreate='../dev-bootstrap/bin/make-guest-cluster.sh'
 
-alias proxy='export http_proxy=http://proxy.vmware.com:3128; export https_proxy=http://proxy.vmware.com:3128; export no_proxy=127.0.0.1,localhost,.eng.vmware.com,.vmware.com,0,1,2,3,4,5,6,7,8,9,,10.0.0.0/8,192.168.0.0/16; export HTTP_PROXY=$http_proxy; export HTTPS_PROXY=$https_proxy; export NO_PROXY=$no_proxy;'
+alias proxy='export http_proxy=http://proxy.vmware.com:3128; export https_proxy=$http_proxy; export no_proxy=127.0.0.1,localhost,.eng.vmware.com,.vmware.com,0,1,2,3,4,5,6,7,8,9,,10.0.0.0/8,192.168.0.0/16; export HTTP_PROXY=$http_proxy; export HTTPS_PROXY=$https_proxy; export NO_PROXY=$no_proxy;'
 alias unproxy='unset http_proxy HTTP_PROXY; unset https_proxy HTTPS_PROXY; unset no_proxy NO_PROXY'
-
-alias py3='python3'
-alias cc='sudo tox -e py27 -e pep8'
-alias p8='sudo tox -e pep8'
 
 #gitbranch=`git branch | grep "*" 2>/dev/null | awk -F "*" '{print $2}'`
 #alias pr='post-review -g --guess-summary --revision-range HEAD~1:HEAD'
@@ -85,6 +81,7 @@ alias pr='rbt post HEAD'
 alias startpostgres='postgres -D /usr/local/var/postgres'
 alias wsut='mvn clean package -DskipTests=true'
 
+## vmware
 alias nim='ssh huh@nimbus-gateway.eng.vmware.com'
 alias dbc='ssh huh@pek2-dbc403.eng.vmware.com'
 alias dbcwdc='ssh huh@wdc-dbc2101.eng.vmware.com'
@@ -95,33 +92,29 @@ alias mytkgworkstation='ssh vmwuser@10.161.94.177'
 alias mytkgcli='ssh vmwuser@10.161.64.241'
 alias myharbor='ssh vmwuser@10.161.78.224'
 alias myminikube='ssh vmwuser@10.161.86.209'
+##
 
 export GOPATH=$HOME/gopath
 export GOROOT=/usr/local/go
-
-PATH=/usr/local/go/bin:$GOPATH/bin:$HOME/bin:$PATH
-PATH=$PATH:/Applications/VMware\ Fusion\ Tech\ Preview.app/Contents/Public
-PATH=$HOME/Downloads/apache-maven-3.3.3/bin:/usr/local/Cellar/postgresql/9.2.4/bin:$PATH
-export CHEF_SERVER_URL=https://wdc-vhadp-pub2-dhcp-72-168.eng.vmware.com:9443
-
-#export GEMDIR=/Users/apple/.rvm/gems/ruby-2.0.0-p247/gems/
-
-export RVC_READLINE=/usr/local//Cellar/readline/6.3.8/lib/libreadline.dylib
-
-source <(kubectl completion bash)
-
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/opt/gnu-getopt/bin:$PATH"
-export PATH="$PATH:/usr/local/kubebuilder/bin"
-#export PATH="$PATH:/Users/huh/gopath/src/gitlab.eng.vmware.com/core-build/git-tools"
+PATH=$GOROOT/bin:$GOPATH/bin:$HOME/bin:$PATH
 
 export GO111MODULE=on
 alias gomodon='export GO111MODULE=on'
 alias gomodoff='export GO111MODULE=off'
 alias gotest='go test -race -v ./pkg/... ./cmd/...'
 
+PATH=$HOME/Downloads/apache-maven-3.3.3/bin:/usr/local/Cellar/postgresql/9.2.4/bin:$PATH
+export CHEF_SERVER_URL=https://wdc-vhadp-pub2-dhcp-72-168.eng.vmware.com:9443
+export RVC_READLINE=/usr/local//Cellar/readline/6.3.8/lib/libreadline.dylib
+
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/opt/gnu-getopt/bin:$PATH"
+export PATH="$PATH:/usr/local/kubebuilder/bin"
+#export PATH="$PATH:/Users/huh/gopath/src/gitlab.eng.vmware.com/core-build/git-tools"
+
 #export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\W\[\033[00m\]\$ '
 
 # kubectl completion
+source <(kubectl completion bash)
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 complete -F __start_kubectl kc
