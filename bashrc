@@ -41,8 +41,8 @@ alias gk='git checkout'
 alias gkb='git checkout -b'
 alias gkt='git checkout --track'
 alias gclean='git checkout --'
-alias gcm='git checkout main || git checkout master'
-alias grm='git rebase main || git rebase master'
+alias gcm='git checkout master 2>/dev/null || git checkout main'
+alias grm='git rebase master 2>/dev/null || git rebase main'
 alias gcp='git cherry-pick'
 alias gn='git clone'
 alias gv='git review'
@@ -51,6 +51,7 @@ alias k='kubectl'
 alias kc='kubectl'
 alias kg='kubectl get -A'
 alias kp='kubectl get pod -A'
+alias kpo='kubectl get pod -A -o wide'
 alias kpw='kubectl get pod -A -w'
 alias ks='kubectl get svc -A'
 alias kl='kubectl logs -f -n'
@@ -59,10 +60,10 @@ alias ky='kubectl apply -f'
 alias kck='kubectl -n kubeapps'
 alias kd='kubectl describe'
 alias kdp='kubectl describe pod -n'
-alias kcc='kubectl config current-context; kubectl cluster-info; kubectl version | cut -d',' -f 1,2,3; kubectl get node;'
+alias kcc='kubectl config current-context; kubectl cluster-info; kubectl version | cut -d',' -f 1,2,3; kubectl get node -owide;'
 alias kcd='kubectl delete'
 alias ka='kubectl get --all-namespaces '
-alias krr='kubectl rollout restart'
+alias krr='kubectl rollout restart
 
 alias dp='docker pull'
 
@@ -70,7 +71,7 @@ alias kmc='kubectl get tkc -A'
 alias mcdelete='kubectl delete tkc'
 alias mccreate='../dev-bootstrap/bin/make-guest-cluster.sh'
 
-alias proxy='export http_proxy=http://proxy.vmware.com:3128; export https_proxy=$http_proxy; export no_proxy=127.0.0.1,localhost,.eng.vmware.com,.vmware.com,0,1,2,3,4,5,6,7,8,9,,10.0.0.0/8,192.168.0.0/16; export HTTP_PROXY=$http_proxy; export HTTPS_PROXY=$https_proxy; export NO_PROXY=$no_proxy;'
+alias proxy='export http_proxy=http://localhost:7890; export https_proxy=$http_proxy; export no_proxy=127.0.0.1,localhost,.eng.vmware.com,.vmware.com,0,1,2,3,4,5,6,7,8,9,,10.0.0.0/8,192.168.0.0/16; export HTTP_PROXY=$http_proxy; export HTTPS_PROXY=$https_proxy; export NO_PROXY=$no_proxy;'
 alias unproxy='unset http_proxy HTTP_PROXY; unset https_proxy HTTPS_PROXY; unset no_proxy NO_PROXY'
 
 #gitbranch=`git branch | grep "*" 2>/dev/null | awk -F "*" '{print $2}'`
@@ -98,9 +99,6 @@ export GOPATH=$HOME/gopath
 export GOROOT=/usr/local/go
 PATH=$GOROOT/bin:$GOPATH/bin:$HOME/bin:$PATH
 
-export GO111MODULE=on
-alias gomodon='export GO111MODULE=on'
-alias gomodoff='export GO111MODULE=off'
 alias gotest='go test -race -v ./pkg/... ./cmd/...'
 
 PATH=$HOME/Downloads/apache-maven-3.3.3/bin:/usr/local/Cellar/postgresql/9.2.4/bin:$PATH
